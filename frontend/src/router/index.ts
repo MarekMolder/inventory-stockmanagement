@@ -24,6 +24,7 @@ import AssignRoleToUserPage from "@/views/AccountView/AssignRoleToUserPage.vue";
 import CreateRolePage from "@/views/AccountView/CreateRolePage.vue";
 import UserListWithRoles from "@/views/AccountView/UserListWithRoles.vue";
 import Home from "@/views/Home.vue";
+import {User} from "lucide-vue-next";
 
 const routes = [
   { path: "/home", name: "Home", component: Home },
@@ -88,7 +89,12 @@ router.beforeEach((to, from, next) => {
     return regex.test(to.path);
   });
 
-  if (isRestricted && store.role !== "admin") {
+  const userRoles = store.roles ?? [];        // eeldame arrayʼd
+  const allowed   = ["admin", "manager"];
+
+  console.log(userRoles)
+
+  if (isRestricted && allowed.every(r => !userRoles.includes(r))) {
     next("/createaction");
   } else {
     next();

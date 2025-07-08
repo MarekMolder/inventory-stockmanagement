@@ -79,6 +79,13 @@ namespace WebApp.Controllers
                     vm.Inventory.EndedAt = DateTime.SpecifyKind(vm.Inventory.EndedAt.Value, DateTimeKind.Utc);
                 }
                 
+                if (!string.IsNullOrWhiteSpace(vm.RolesInput))
+                {
+                    vm.Inventory.AllowedRoles = vm.RolesInput
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                        .ToList();
+                }
+                
                 _bll.InventoryService.Add(vm.Inventory);
                 await _bll.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -112,7 +119,9 @@ namespace WebApp.Controllers
                     inventory.AddressId
                 ),
                 
-                Inventory = inventory
+                Inventory = inventory,
+                
+                RolesInput = inventory.AllowedRoles != null ? string.Join(",", inventory.AllowedRoles) : ""
             };
             return View(vm);
         }
@@ -134,6 +143,17 @@ namespace WebApp.Controllers
                 if (vm.Inventory.EndedAt.HasValue)
                 {
                     vm.Inventory.EndedAt = DateTime.SpecifyKind(vm.Inventory.EndedAt.Value, DateTimeKind.Utc);
+                }
+                
+                if (!string.IsNullOrWhiteSpace(vm.RolesInput))
+                {
+                    vm.Inventory.AllowedRoles = vm.RolesInput
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                        .ToList();
+                }
+                else
+                {
+                    vm.Inventory.AllowedRoles = new List<string>();
                 }
                 
                 _bll.InventoryService.Update(vm.Inventory);

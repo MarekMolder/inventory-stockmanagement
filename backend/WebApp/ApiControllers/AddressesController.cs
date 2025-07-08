@@ -17,7 +17,7 @@ namespace WebApp.ApiControllers
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,manager")]
     public class AddressesController : ControllerBase
     {
         private readonly ILogger<AddressesController> _logger;

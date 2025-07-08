@@ -16,6 +16,7 @@ namespace WebApp.ApiControllers
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(Roles = "admin,manager,tootaja")]
     public class ReasonsController : ControllerBase
     {
         private readonly ILogger<ReasonsController> _logger;

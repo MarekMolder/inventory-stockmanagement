@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using App.BLL.Contracts;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +17,7 @@ namespace WebApp.ApiControllers
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(Roles = "admin,manager,tootaja")]
     public class StorageRoomsController : ControllerBase
     {
         private readonly ILogger<StorageRoomsController> _logger;
@@ -130,5 +132,30 @@ namespace WebApp.ApiControllers
 
             return Ok(result.Select(x => _mapper.Map(x)!));
         }
+        
+        [HttpGet("byinventory/{inventoryId:guid}")]
+        [ProducesResponseType(typeof(IEnumerable<App.DTO.v1.StorageRoom>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<App.DTO.v1.StorageRoom>>> GetByInventory2(Guid inventoryId)
+        {
+            // 1) leia inventar
+            var inv = await _bll.InventoryService.FindAsync(inventoryId);
+            if (inv == null) return NotFound();
+
+            // 2) kas kasutaja roll kattub inventari AllowedRoles’iga?
+            var userRoles = User.Claims
+                .Where(c => c.Type is ClaimTypes.Role or "role")
+                .Select(c => c.Value)
+                .ToList();
+
+            if (inv.AllowedRoles == null || !inv.AllowedRoles.Intersect(userRoles).Any())
+                return Forbid();
+
+            // 3) ruumid
+            var rooms = await _bll.StorageRoomService.GetAllByInventoryIdAsync(inventoryId);
+            return Ok(rooms.Select(r => _mapper.Map(r)!));
+        }
+
     }
 }

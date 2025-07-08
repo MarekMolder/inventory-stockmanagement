@@ -71,7 +71,10 @@ public class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid, IdentityUs
             .HasOne(a => a.Role)
             .WithMany(r => r.UserRoles)
             .HasForeignKey(a => a.RoleId);
-
+        
+        modelBuilder.Entity<Inventory>()
+            .Property(i => i.AllowedRoles)
+            .HasColumnType("jsonb");
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

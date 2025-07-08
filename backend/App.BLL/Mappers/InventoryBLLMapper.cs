@@ -20,6 +20,8 @@ public class InventoryBLLMapper : IMapper<App.BLL.DTO.Inventory, App.DAL.DTO.Inv
             AddressId = entity.AddressId,
             Address = AddressBLLMapper.MapSimple(entity.Address),
             
+            AllowedRoles = entity.AllowedRoles?.ToList(),
+            
             StorageRoomInInventories = entity.StorageRoomInInventories?.Select(t => _storageRoomInInventoryBllMapper.Map(t)).ToList()!
             
         };
@@ -39,6 +41,8 @@ public class InventoryBLLMapper : IMapper<App.BLL.DTO.Inventory, App.DAL.DTO.Inv
             AddressId = entity.AddressId,
             Address = AddressBLLMapper.MapSimple(entity.Address),
             
+            AllowedRoles = entity.AllowedRoles?.ToList(),
+            
             StorageRoomInInventories = entity.StorageRoomInInventories?.Select(t => _storageRoomInInventoryBllMapper.Map(t)).ToList()!
         };
         return res;
@@ -54,6 +58,7 @@ public class InventoryBLLMapper : IMapper<App.BLL.DTO.Inventory, App.DAL.DTO.Inv
             Name = entity.Name,
             EndedAt = entity.EndedAt,
             AddressId = entity.AddressId,
+            AllowedRoles = entity.AllowedRoles?.ToList()
         };
     }
     
@@ -67,6 +72,7 @@ public class InventoryBLLMapper : IMapper<App.BLL.DTO.Inventory, App.DAL.DTO.Inv
             Name = entity.Name,
             EndedAt = entity.EndedAt,
             AddressId = entity.AddressId,
+            AllowedRoles = entity.AllowedRoles?.ToList()
         };
     }
 }

@@ -18,6 +18,7 @@ namespace WebApp.ApiControllers
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(Roles = "admin,manager,tootaja")]
     public class ActionsController : ControllerBase
     {
         private readonly ILogger<ActionsController> _logger;
@@ -44,7 +45,7 @@ namespace WebApp.ApiControllers
         [ProducesResponseType( 404 )]
         public async Task<ActionResult<IEnumerable<App.DTO.v1.ActionEntity>>> GetActions()
         {
-            var isAdmin = User.IsInRole("admin");
+            var isAdmin = User.IsInRole("admin") || User.IsInRole("manager");
 
             var actions = isAdmin
                 ? await _bll.ActionEntityService.AllAsync() // admin näeb kõiki

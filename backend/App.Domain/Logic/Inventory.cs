@@ -15,6 +15,8 @@ public class Inventory : BaseEntity
     
     public Address? Address { get; set; }
     
+    public ICollection<string>? AllowedRoles { get; set; } = new List<string>();
+    
     public ICollection<StorageRoomInInventory>? StorageRoomInInventories { get; set; }
     
     [InverseProperty("FromInventory")]

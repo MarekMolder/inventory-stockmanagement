@@ -10,4 +10,7 @@ public class InventoryCreateEditViewModel
 
     [ValidateNever]
     public SelectList AddressSelectList { get; set; } = default!;
+    
+    [ValidateNever]
+    public string? RolesInput { get; set; }
 }

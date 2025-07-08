@@ -16,6 +16,7 @@ import type { IActionType } from '@/domain/logic/IActionType';
 import type { IStockAudit } from '@/domain/logic/IStockAudit';
 import { useUserDataStore } from '@/stores/userDataStore';
 import type {IStorageRoom} from "@/domain/logic/IStorageRoom.ts";
+import {InventoryService} from "@/services/mvcServices/InventoryService.ts";
 
 const actionService = new ActionService();
 const actionTypeService = new ActionTypeService();
@@ -24,9 +25,13 @@ const supplierService = new SupplierService();
 const productService = new ProductService();
 const stockAuditService = new StockAuditService();
 const storageRoomService = new StorageRoomService();
+const inventoryService   = new InventoryService();
 
 const store = useUserDataStore();
-const isAdmin = ref(store.role === 'admin');
+
+const isAdmin = computed(() =>
+  store.roles.includes('admin') || store.roles.includes('manager')
+);
 
 const validationError = ref('');
 const successMessage = ref('');
@@ -51,12 +56,21 @@ const stockAudits = ref<IStockAudit[]>([]);
 const storageRooms = ref<IStorageRoom[]>([]);
 
 onMounted(async () => {
+  const invRes = await inventoryService.getEnrichedInventories();
+  const visibleInventories = invRes.data ?? [];
+
+  const rooms: IStorageRoom[] = [];
+  for (const inv of visibleInventories) {
+    const res = await storageRoomService.getByInventoryId(inv.id);
+    rooms.push(...(res.data ?? []));
+  }
+  storageRooms.value = rooms;
+
   actionTypes.value = (await actionTypeService.getAllAsync()).data || [];
   reasons.value = (await reasonService.getAllAsync()).data || [];
   products.value = (await productService.getAllAsync()).data || [];
   suppliers.value = (await supplierService.getAllAsync()).data || [];
   stockAudits.value = (await stockAuditService.getAllAsync()).data || [];
-  storageRooms.value = (await storageRoomService.getAllAsync()).data || [];
 
   if (!isAdmin.value) {
     const discard = actionTypes.value.find(a => a.name.toLowerCase() === 'maha kandmine');

@@ -15,4 +15,6 @@ public class EnrichedInventory : IDomainId
     public Guid AddressId { get; set; }
     
     public string FullAddress { get; set; } = default!;
+    
+    public List<string>? AllowedRoles { get; set; }
 }

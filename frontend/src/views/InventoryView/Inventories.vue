@@ -19,8 +19,8 @@ const inventoriesWithRooms = ref<
 const fetchData = async () => {
   try {
     const invResult = await inventoryService.getEnrichedInventories();
-    const inventories = invResult.data || [];
 
+    const inventories = invResult.data || [];
     const results: { inventory: IInventoryEnriched; rooms: IStorageRoom[] }[] = [];
 
     for (const inv of inventories) {

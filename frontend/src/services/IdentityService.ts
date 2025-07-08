@@ -38,7 +38,7 @@ export class IdentityService extends BaseService {
         store.lastName = response.data.lastName;
         store.userId = response.data.userId;
         store.username = response.data.username;
-        store.role = response.data.roles?.[0] ?? null;
+        store.roles = response.data.roles ?? [];
 
         return { data: response.data };
       }

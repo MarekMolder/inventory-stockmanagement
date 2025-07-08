@@ -15,4 +15,6 @@ public class Inventory : IDomainId
     
     public Guid AddressId { get; set; }
     
+    public List<string>? AllowedRoles { get; set; }
+    
 }

@@ -21,6 +21,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Address)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowedRoles)
+        </th>
         <th></th>
     </tr>
     </thead>
@@ -35,6 +38,16 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Address!.City)
+            </td>
+            <td>
+                @if (item.AllowedRoles != null && item.AllowedRoles.Any())
+                {
+                    @string.Join(", ", item.AllowedRoles)
+                }
+                else
+                {
+                    <span class="text-muted">No roles</span>
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

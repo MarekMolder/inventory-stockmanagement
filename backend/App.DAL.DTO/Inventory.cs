@@ -21,6 +21,8 @@ public class Inventory : IDomainId
     
     public ICollection<StorageRoomInInventory>? StorageRoomInInventories { get; set; }
     
+    public List<string>? AllowedRoles { get; set; }
+    
     
     [InverseProperty("FromInventory")]
     public ICollection<StockMovement>? FromStockMovements { get; set; }

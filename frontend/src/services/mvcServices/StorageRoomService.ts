@@ -12,4 +12,11 @@ export class StorageRoomService extends BaseEntityService<IStorageRoom> {
     const response = await this.axiosInstance.get(`/storagerooms/inventory/${id}`);
     return { data: response.data };
   }
+
+  async getByInventoryId2(invId: string) {
+    return await this.axiosInstance
+      .get<IStorageRoom[]>(`storagerooms/byinventory/${invId}`)
+      .then(r => ({ data: r.data, errors: [] }))
+      .catch(e => ({ errors: [e.message] }));
+  }
 }

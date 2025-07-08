@@ -110,7 +110,7 @@ public class AccountController : ControllerBase
 
     [HttpPost]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,manager")]
     public async Task<ActionResult<JWTResponse>> Register(Register registerModel, int? jwtExpiresInSeconds, int? refreshTokenExpiresInSeconds)
     {
         var existingUser = await _userManager.FindByEmailAsync(registerModel.Email);
@@ -369,7 +369,7 @@ public class AccountController : ControllerBase
     
     [HttpGet]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,manager")]
     public async Task<ActionResult<IEnumerable<UserWithRolesDto>>> GetAllUsersWithRoles()
     {
         var users = await _context.Users
@@ -391,7 +391,7 @@ public class AccountController : ControllerBase
     
     [HttpDelete]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,manager")]
     public async Task<IActionResult> RemoveRoleFromUser(Guid userId, Guid roleId)
     {
         var userRole = await _context.UserRoles

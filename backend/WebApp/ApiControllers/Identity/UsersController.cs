@@ -12,7 +12,7 @@ namespace WebApp.ApiControllers.Identity;
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-[Authorize(Roles = "admin")]
+[Authorize(Roles = "admin,manager")]
 public class UsersController : ControllerBase
 {
     private readonly UserManager<AppUser> _userManager;

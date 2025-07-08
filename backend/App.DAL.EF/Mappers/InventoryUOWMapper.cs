@@ -20,6 +20,8 @@ public class InventoryUOWMapper: IMapper<App.DAL.DTO.Inventory, App.Domain.Logic
             AddressId = entity.AddressId,
             Address = AddressUOWMapper.MapSimple(entity.Address),
             
+            AllowedRoles = entity.AllowedRoles?.ToList(),
+            
             StorageRoomInInventories = entity.StorageRoomInInventories?.Select(t => _storageRoomInInventoryUOWMapper.Map(t)).ToList()!
         };
         return res;
@@ -38,6 +40,8 @@ public class InventoryUOWMapper: IMapper<App.DAL.DTO.Inventory, App.Domain.Logic
             AddressId = entity.AddressId,
             Address = AddressUOWMapper.MapSimple(entity.Address),
             
+            AllowedRoles = entity.AllowedRoles?.ToList(),
+            
             StorageRoomInInventories = entity.StorageRoomInInventories?.Select(t => _storageRoomInInventoryUOWMapper.Map(t)).ToList()!
         };
         return res;
@@ -53,6 +57,7 @@ public class InventoryUOWMapper: IMapper<App.DAL.DTO.Inventory, App.Domain.Logic
             Name = entity.Name,
             EndedAt = entity.EndedAt,
             AddressId = entity.AddressId,
+            AllowedRoles = entity.AllowedRoles?.ToList()
         };
     }
 
@@ -66,6 +71,7 @@ public class InventoryUOWMapper: IMapper<App.DAL.DTO.Inventory, App.Domain.Logic
             Name = entity.Name,
             EndedAt = entity.EndedAt,
             AddressId = entity.AddressId,
+            AllowedRoles = entity.AllowedRoles?.ToList()
         };
     }
 }

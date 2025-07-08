@@ -4,7 +4,13 @@ import { useUserDataStore } from "@/stores/userDataStore";
 import { computed, ref } from "vue";
 
 const store = useUserDataStore();
-const isAdmin = computed(() => store.role === "admin");
+const isAdmin = computed(() => {
+  const roles = store.roles;
+
+  return Array.isArray(roles)
+    ? roles.includes("admin") || roles.includes("manager")   // massiiv
+    : roles === "admin" || roles === "manager";              // üksik string
+});
 
 // kontrollime hoverit
 const isOpen = ref(false);

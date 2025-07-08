@@ -13,6 +13,7 @@ public class InventoryAPIMapper : IMapper<App.DTO.v1.Inventory, App.BLL.DTO.Inve
             Name = entity.Name,
             EndedAt = entity.EndedAt,
             AddressId = entity.AddressId,
+            AllowedRoles = entity.AllowedRoles?.ToList()
         };
         return res;
     }
@@ -26,6 +27,7 @@ public class InventoryAPIMapper : IMapper<App.DTO.v1.Inventory, App.BLL.DTO.Inve
             Name = entity.Name,
             EndedAt = entity.EndedAt,
             AddressId = entity.AddressId,
+            AllowedRoles = entity.AllowedRoles?.ToList()
         };
         return res;
     }
@@ -38,6 +40,7 @@ public class InventoryAPIMapper : IMapper<App.DTO.v1.Inventory, App.BLL.DTO.Inve
             Name = entity.Name,
             EndedAt = entity.EndedAt,
             AddressId = entity.AddressId,
+            AllowedRoles = entity.AllowedRoles?.ToList()
         };
         return res;
     }

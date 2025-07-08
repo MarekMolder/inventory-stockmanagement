@@ -21,7 +21,8 @@ public class EnrichedInventoryApiMapper : IMapper<ApiEntities.EnrichedInventory,
             Name = entity.Name,
             EndedAt = entity.EndedAt,
             AddressId = entity.AddressId,
-            FullAddress = fullAddress
+            FullAddress = fullAddress,
+            AllowedRoles = entity.AllowedRoles?.ToList()
         };
     }
 

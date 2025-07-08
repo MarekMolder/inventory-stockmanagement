@@ -19,7 +19,7 @@ namespace WebApp.ApiControllers
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,manager")]
     public class CurrentStocksController : ControllerBase
     {
         private readonly ILogger<CurrentStocksController> _logger;

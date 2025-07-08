@@ -21,7 +21,9 @@ const isAdmin = computed(() => {
   try {
     const decoded: any = jwtDecode(userStore.jwt);
     const roleClaim = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-    return Array.isArray(roleClaim) ? roleClaim.includes("admin") : roleClaim === "admin";
+    return Array.isArray(roleClaim)
+      ? roleClaim.some(r => r === "admin" || r === "manager")
+      : roleClaim === "admin" || roleClaim === "manager";
   } catch {
     return false;
   }
