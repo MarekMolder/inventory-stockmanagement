@@ -178,7 +178,7 @@ const isMahakandmine = computed(() => selectedActionType.value?.name.toLowerCase
 }
 
 .action-box {
-  background-color: rgba(26, 26, 26, 0.95);
+  background: rgba(20, 20, 20, 0.85);
   backdrop-filter: blur(6px);
   padding: 2rem;
   border-radius: 12px;

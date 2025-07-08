@@ -47,109 +47,151 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="action-index-wrapper">
-    <div class="action-index-box">
-      <h1 class="title">{{ $t('Users and roles') }}</h1>
+  <main class="users-wrapper">
+    <section class="users-box">
+      <h1 class="page-title">👤 {{ $t('Users and roles') }}</h1>
 
-      <div v-if="error" style="color: red">{{ error }}</div>
+      <p v-if="error" class="alert error-msg">{{ error }}</p>
 
-      <table class="styled-table">
-        <thead>
-        <tr>
-          <th>{{ $t('Email') }}</th>
-          <th>{{ $t('Full name') }}</th>
-          <th>{{ $t('Roles') }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="user in users" :key="user.id">
-          <td>{{ user.email }}</td>
-          <td>{{ user.firstName }} {{ user.lastName }}</td>
-          <td>
-              <span
-                v-for="role in user.roles"
-                :key="role"
-                class="role-badge"
-              >
-                {{ role }}
-                <button
-                  class="remove-button"
-                  @click="removeRole(user.id, role)"
-                  title="Remove role"
+      <div class="table-container">
+        <table class="user-table">
+          <thead>
+          <tr>
+            <th>{{ $t('Email') }}</th>
+            <th>{{ $t('Full name') }}</th>
+            <th>{{ $t('Roles') }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="user in users" :key="user.id">
+            <td>{{ user.email }}</td>
+            <td>{{ user.firstName }} {{ user.lastName }}</td>
+            <td>
+                <span
+                  class="role-badge"
+                  v-for="role in user.roles"
+                  :key="role"
                 >
-                  ×
-                </button>
-              </span>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+                  {{ role }}
+                  <button
+                    class="remove-btn"
+                    @click="removeRole(user.id, role)"
+                    title="Remove role"
+                  >
+                    ×
+                  </button>
+                </span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
 </template>
 
 <style scoped>
-.action-index-wrapper {
+.users-wrapper {
+  padding: 2rem;
   display: flex;
   justify-content: center;
-  margin-top: 5vh;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
   color: white;
 }
 
-.action-index-box {
-  background-color: #1a1a1a;
+.users-box {
+  width: 100%;
+  max-width: 1100px;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
   padding: 2rem;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 900px;
-  box-shadow: 0 0 12px rgba(255, 165, 0, 0.4);
-  border: 3px solid orange;
+  box-shadow: 0 0 16px rgba(255, 165, 0, 0.1);
+  border: 1px solid rgba(255, 170, 51, 0.15);
 }
 
-.title {
+.page-title {
   text-align: center;
-  font-size: 2rem;
-  color: orange;
-  margin-bottom: 1rem;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #ffaa33;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(255, 170, 51, 0.2);
 }
 
-.styled-table {
+.alert {
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.error-msg {
+  background: rgba(255, 80, 80, 0.15);
+  border: 1px solid rgba(255, 80, 80, 0.6);
+  color: #ff5f5f;
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 12px;
+  background: rgba(20, 20, 20, 0.5);
+  box-shadow: inset 0 0 10px rgba(255, 170, 51, 0.05);
+}
+
+.user-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #2a2a2a;
+  font-size: 1rem;
+  min-width: 600px;
 }
 
-.styled-table th,
-.styled-table td {
-  border: 1px solid #444;
-  padding: 0.75rem;
+.user-table th,
+.user-table td {
+  padding: 1rem;
   text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  vertical-align: top;
 }
 
-.styled-table thead {
-  background-color: #ff8c00;
-  color: white;
+.user-table thead {
+  background: #ffaa33;
+  color: black;
+}
+
+.user-table tbody tr:hover {
+  background-color: rgba(255, 170, 51, 0.08);
 }
 
 .role-badge {
-  background-color: #444;
-  color: white;
-  border-radius: 5px;
-  padding: 0.3rem 0.6rem;
-  margin: 0.2rem;
   display: inline-flex;
   align-items: center;
+  background: rgba(255, 165, 0, 0.1);
+  color: #ffaa33;
+  padding: 0.4rem 0.8rem;
+  margin: 0.2rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 170, 51, 0.3);
 }
 
-.remove-button {
-  background: none;
-  border: none;
-  color: red;
+.remove-btn {
   margin-left: 0.5rem;
+  background: transparent;
+  border: none;
+  color: #ff5f5f;
   cursor: pointer;
+  font-size: 1.1rem;
   font-weight: bold;
-  font-size: 1rem;
-  line-height: 1;
+  padding: 0 0.2rem;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: rgba(255, 80, 80, 0.15);
 }
 </style>

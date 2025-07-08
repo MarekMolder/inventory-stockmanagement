@@ -9,76 +9,69 @@ import UserListCard from "@/components/UserListCard.vue";
 </script>
 
 <template>
-  <div class="dashboard">
-    <div class="row row-top">
-      <PendingActionsCard class="card wide"/>
-      <ProblematicProducts class="card"/>
-      <LowestStockProductsCard class="card"/>
-      <ProductQuickSearchCard class="card"/>
-    </div>
-    <div class="row row-bottom">
-      <TotalInventoryWorthCard class="card"/>
-      <TopUsersByRemoveCard class="card"/>
-      <UserListCard class="card"/>
-    </div>
+  <div class="dashboard-grid">
+    <!-- RIDA 1 -->
+    <ProductQuickSearchCard class="card card-info" />
+    <TotalInventoryWorthCard class="card card-focus wide" />
+    <PendingActionsCard class="card card-warning" />
+    <ProblematicProducts class="card card-danger" />
+
+
+    <!-- RIDA 2 -->
+    <TopUsersByRemoveCard class="card card-blue" />
+    <UserListCard class="card card-default" />
+    <LowestStockProductsCard class="card card-warning" />
   </div>
 </template>
 
 <style scoped>
 .dashboard-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  padding: 2rem 4rem;
-}
-
-.dashboard {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
   padding: 3rem 4rem;
 }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-}
-
-.row-top {
-  justify-content: space-between;
-}
-
-.row-bottom {
-  justify-content: center;
-}
-
+/* Kaardid */
 .card {
-  background-color: #1e1e1e;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  background: rgba(20, 20, 20, 0.7);
+  padding: 1.6rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.05);
   display: flex;
   flex-direction: column;
-  flex: 1 1 auto;
-  min-width: 240px;
-  max-width: 320px;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  min-width: 0;
 }
 
 .card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 10px 25px rgb(220, 198, 70);
+  transform: scale(1.02);
+  box-shadow: 0 12px 28px rgba(255, 170, 51, 0.2);
 }
 
 .card.wide {
-  max-width: 400px;
+  grid-column: span 2;
 }
 
-.card.full {
-  flex: 1 1 100%;
+/* Värvid */
+.card-danger { border-left: 5px solid #e74c3c; }
+.card-warning { border-left: 5px solid #ffaa33; }
+.card-info { border-left: 5px solid #3498db; }
+.card-blue { border-left: 5px solid #1abc9c; }
+.card-focus { border-left: 5px solid #9b59b6; }
+.card-default { border-left: 5px solid #666; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
+
+  .card.wide {
+    grid-column: span 1;
+  }
 }
-
-
 </style>

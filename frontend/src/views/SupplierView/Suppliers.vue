@@ -353,7 +353,7 @@ body {
   padding: 0.4rem 1rem;
   border: none;
   border-radius: 8px;
-  background-color: #ffaa33;
+  background: linear-gradient(to right, #ffaa33, #ff8c00);
   color: black;
   font-weight: bold;
   font-size: 0.9rem;

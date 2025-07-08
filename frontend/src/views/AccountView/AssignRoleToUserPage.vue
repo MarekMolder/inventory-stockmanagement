@@ -37,100 +37,113 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="action-index-wrapper">
-    <div class="action-index-box">
-      <h1 class="title">{{ $t('Assign role to user') }}</h1>
+  <main class="assign-role-wrapper">
+    <div class="assign-box">
+      <h1 class="page-title">🎭 {{ $t('Assign role to user') }}</h1>
 
-      <select v-model="selectedUserId" class="status-filter">
-        <option value="" disabled>Select user</option>
-        <option v-for="u in users" :value="u.id" :key="u.id">
+      <select v-model="selectedUserId" class="assign-select">
+        <option disabled value="">Select user</option>
+        <option v-for="u in users" :key="u.id" :value="u.id">
           {{ u.firstName }} {{ u.lastName }}
         </option>
       </select>
 
-      <select v-model="selectedRoleId" class="status-filter">
-        <option value="" disabled>{{ $t('Select role') }}</option>
-        <option v-for="r in roles" :value="r.id" :key="r.id">{{ r.name }}</option>
+      <select v-model="selectedRoleId" class="assign-select">
+        <option disabled value="">{{ $t('Select role') }}</option>
+        <option v-for="r in roles" :key="r.id" :value="r.id">{{ r.name }}</option>
       </select>
 
-      <button class="create-link" @click="assign">{{ $t('Assign') }}</button>
+      <button class="assign-button" @click="assign">{{ $t('Assign') }}</button>
 
-      <p v-if="message" style="color: lightgreen">{{ message }}</p>
-      <p v-if="error" style="color: red">{{ error }}</p>
+      <p v-if="message" class="alert success-msg">{{ message }}</p>
+      <p v-if="error" class="alert error-msg">{{ error }}</p>
     </div>
   </main>
 </template>
 
 <style scoped>
-.action-index-wrapper {
+.assign-role-wrapper {
   display: flex;
   justify-content: center;
-  margin-top: 5vh;
-  font-family: Arial, sans-serif;
+  padding: 3rem 1rem;
+  font-family: 'Inter', sans-serif;
   color: white;
 }
 
-.action-index-box {
-  background-color: #1a1a1a;
+.assign-box {
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
   padding: 2rem;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 800px;
-  box-shadow: 0 0 12px rgba(255, 165, 0, 0.4);
-  border: 3px solid orange;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 0 16px rgba(255, 165, 0, 0.1);
+  border: 1px solid rgba(255, 170, 51, 0.15);
 }
 
-.title {
+.page-title {
   text-align: center;
-  font-size: 2rem;
-  color: orange;
-  margin-bottom: 1rem;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #ffaa33;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px rgba(255, 170, 51, 0.2);
 }
 
-.status-filter {
-  background-color: #2a2a2a;
-  color: white;
-  border: 2px solid orange;
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
+.assign-select {
+  width: 100%;
+  margin-bottom: 1.2rem;
+  padding: 0.6rem 1rem;
   font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  width: 100%;
-}
-
-.create-link {
-  background-color: orange;
-  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  background: rgba(43, 43, 43, 0.6);
   color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: background 0.3s ease;
-  display: block;
+  border: 1px solid #ffaa33;
+  transition: all 0.2s ease;
+}
+
+.assign-select:focus {
+  outline: none;
+  background: rgba(60, 60, 60, 0.8);
+  border-color: #ffc266;
+}
+
+.assign-button {
   width: 100%;
-  text-align: center;
-}
-
-.create-link:hover {
-  background-color: #ffaa33;
-}
-
-.styled-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #2a2a2a;
-}
-
-.styled-table th,
-.styled-table td {
-  border: 1px solid #444;
+  background: linear-gradient(to right, #ffaa33, #ff8c00);
   padding: 0.75rem;
-  text-align: left;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  color: black;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  box-shadow: 0 3px 10px rgba(255, 165, 0, 0.2);
 }
 
-.styled-table thead {
-  background-color: #ff8c00;
-  color: white;
+.assign-button:hover {
+  background: linear-gradient(to right, #ffc56e, #ffa726);
+}
+
+.alert {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.success-msg {
+  background: rgba(0, 255, 100, 0.1);
+  border: 1px solid rgba(0, 255, 100, 0.4);
+  color: #9effb1;
+}
+
+.error-msg {
+  background: rgba(255, 80, 80, 0.15);
+  border: 1px solid rgba(255, 80, 80, 0.6);
+  color: #ff5f5f;
 }
 </style>

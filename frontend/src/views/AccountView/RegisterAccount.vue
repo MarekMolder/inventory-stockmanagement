@@ -83,79 +83,116 @@ const doRegister = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20vh;
-  font-family: Arial, sans-serif;
-}
-
-.register-box {
-  background-color: #1a1a1a;
-  padding: 2rem;
-  border-radius: 12px;
-  width: 400px;
-  box-shadow: 0 0 10px rgba(255, 165, 0, 0.6);
-  border: 4px solid orange;
+  padding: 6rem 2rem;
+  min-height: 50vh;
+  font-family: 'Segoe UI', sans-serif;
   color: white;
 }
 
+.register-box {
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 8px 24px rgba(255, 170, 51, 0.2);
+  border: 1px solid rgba(255, 170, 51, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .custom-logo {
-  color: orange;
+  color: #ffaa33;
+  font-size: 2.2rem;
   font-weight: bold;
-  font-size: 2.5rem;
-  text-decoration: none;
-  display: block;
   text-align: center;
+  text-decoration: none;
   margin-bottom: 1rem;
+  text-shadow: 0 0 6px rgba(255, 170, 51, 0.6);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 label {
-  display: block;
-  margin-top: 1rem;
-  font-weight: bold;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  color: #f0f0f0;
 }
 
 input {
   width: 100%;
-  padding: 0.5rem;
-  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
   border: none;
-  margin-top: 0.3rem;
-  background-color: #fff7e6;
-  color: black;
+  background-color: #2a2a2a;
+  color: white;
   font-size: 1rem;
+  transition: background 0.3s, border 0.3s;
+}
+
+input:focus {
+  outline: none;
+  background: #1a1a1a;
+  border: 1px solid orange;
 }
 
 .register-button {
-  margin-top: 2rem;
-  background: linear-gradient(to top left, rgb(40, 25, 5), orange);
-  border: 2px solid orange;
-  border-radius: 6px;
-  padding: 0.6rem;
-  width: 100%;
+  margin-top: 1rem;
+  background: linear-gradient(to right, #ff8c00, #ffa500);
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
   color: white;
   font-weight: bold;
+  font-size: 1.05rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .register-button:hover {
-  background: linear-gradient(to right, #e69500, #d4af37);
+  background: linear-gradient(to right, #ffa500, #ffcc00);
+  transform: scale(1.02);
+}
+
+.alert,
+.alert-success {
+  text-align: center;
+  padding: 0.75rem;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
 }
 
 .alert {
-  background-color: #ffcccc;
-  color: black;
-  padding: 0.75rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  text-align: center;
+  background-color: rgba(255, 80, 80, 0.2);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 80, 80, 0.4);
 }
 
 .alert-success {
-  background-color: #ccffcc;
-  color: black;
-  padding: 0.75rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  text-align: center;
+  background-color: rgba(80, 255, 160, 0.2);
+  color: #80ffaa;
+  border: 1px solid rgba(80, 255, 160, 0.4);
+}
+
+@media (max-width: 600px) {
+  .register-box {
+    padding: 2rem;
+  }
+
+  .custom-logo {
+    font-size: 2rem;
+  }
+
+  .register-button {
+    font-size: 1rem;
+  }
 }
 </style>

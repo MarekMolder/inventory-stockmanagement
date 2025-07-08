@@ -40,23 +40,32 @@ onMounted(fetchRoles);
 </script>
 
 <template>
-  <main class="action-index-wrapper">
-    <div class="action-index-box">
-      <h1 class="title">{{ $t('All roles') }}</h1>
+  <main class="role-wrapper">
+    <section class="role-header">
+      <h1 class="page-title">👥 Roles</h1>
+      <p class="subtitle">Manage access roles for your system</p>
+    </section>
 
-      <div v-if="error" class="error" style="color: red">{{ error }}</div>
-      <div v-if="success" class="success" style="color: limegreen">{{ success }}</div>
-
-      <form @submit.prevent="createRole" class="create-role-form">
-        <input v-model="newRoleName" type="text" placeholder="Enter new role name" class="role-input" />
-        <button type="submit" class="create-button">{{ $t('Create role') }}</button>
+    <div class="role-form-bar">
+      <form @submit.prevent="createRole" class="role-form">
+        <input
+          v-model="newRoleName"
+          type="text"
+          placeholder="Enter new role name"
+          class="role-input"
+        />
+        <button type="submit" class="role-create-btn">+ Create</button>
       </form>
+      <p v-if="error" class="alert error-msg">{{ error }}</p>
+      <p v-if="success" class="alert success-msg">{{ success }}</p>
+    </div>
 
-      <table class="styled-table">
+    <div class="role-table-box">
+      <table class="role-table">
         <thead>
         <tr>
           <th>ID</th>
-          <th>Name</th>
+          <th>Role Name</th>
         </tr>
         </thead>
         <tbody>
@@ -71,74 +80,124 @@ onMounted(fetchRoles);
 </template>
 
 <style scoped>
-.action-index-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 5vh;
-  font-family: Arial, sans-serif;
+.role-wrapper {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
   color: white;
 }
 
-.action-index-box {
-  background-color: #1a1a1a;
-  padding: 2rem;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 800px;
-  box-shadow: 0 0 12px rgba(255, 165, 0, 0.4);
-  border: 3px solid orange;
+.role-header {
+  margin-bottom: 2rem;
 }
 
-.title {
-  text-align: center;
-  font-size: 2rem;
-  color: orange;
-  margin-bottom: 1rem;
+.page-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #ffaa33;
+  text-shadow: 0 0 10px rgba(255, 170, 51, 0.25);
+  margin-bottom: 0.3rem;
 }
 
-.create-role-form {
+.subtitle {
+  font-size: 1rem;
+  color: #bbb;
+  opacity: 0.85;
+}
+
+.role-form-bar {
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 0 12px rgba(255, 170, 51, 0.05);
+  margin-bottom: 2rem;
+}
+
+.role-form {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 1.5rem;
 }
 
 .role-input {
   flex: 1;
-  padding: 0.5rem;
-  border: 2px solid orange;
-  border-radius: 6px;
-  background-color: #2a2a2a;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ffaa33;
+  background-color: rgba(43, 43, 43, 0.6);
   color: white;
 }
 
-.create-button {
-  background-color: orange;
-  padding: 0.5rem 1rem;
+.role-input::placeholder {
+  color: #ccc;
+}
+
+.role-create-btn {
+  background: linear-gradient(to right, #ffaa33, #ff8c00);
+  color: black;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 10px;
+  padding: 0.6rem 1.5rem;
   border: none;
-  border-radius: 6px;
-  font-weight: bold;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.create-button:hover {
-  background-color: #ffaa33;
+.role-create-btn:hover {
+  background: linear-gradient(to right, #ffc56e, #ffa726);
 }
 
-.styled-table {
+.alert {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.error-msg {
+  background: rgba(255, 80, 80, 0.15);
+  border: 1px solid rgba(255, 80, 80, 0.6);
+  color: #ff5f5f;
+}
+
+.success-msg {
+  background: rgba(0, 255, 100, 0.1);
+  border: 1px solid rgba(0, 255, 100, 0.4);
+  color: #9effb1;
+}
+
+.role-table-box {
+  background: rgba(20, 20, 20, 0.5);
+  border-radius: 16px;
+  padding: 1rem;
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 20px rgba(255, 165, 0, 0.05);
+}
+
+.role-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #2a2a2a;
+  color: white;
 }
 
-.styled-table th,
-.styled-table td {
-  border: 1px solid #444;
-  padding: 0.75rem;
+.role-table th,
+.role-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   text-align: left;
 }
 
-.styled-table thead {
-  background-color: #ff8c00;
-  color: white;
+.role-table thead {
+  background-color: #ffaa33;
+  color: black;
+}
+
+.role-table tbody tr:hover {
+  background: rgba(255, 170, 51, 0.1);
 }
 </style>

@@ -32,136 +32,159 @@ const changePassword = async () => {
 </script>
 
 <template>
+  <main class="password-wrapper">
+    <section class="password-box">
+      <h1 class="page-title">🔐 {{ $t('Change password') }}</h1>
 
-  <div class="page-wrapper">
-
-    <!-- Parem paneel -->
-    <div class="edit-panel">
-      <h2>{{ $t('Change password') }}</h2>
-      <form @submit.prevent="changePassword">
+      <form @submit.prevent="changePassword" class="password-form">
         <label>{{ $t('Current password') }}</label>
-        <input v-model="currentPassword" type="password" :placeholder="$t('Enter current password')" />
+        <input
+          v-model="currentPassword"
+          type="password"
+          :placeholder="$t('Enter current password')"
+        />
 
         <label>{{ $t('New password') }}</label>
-        <input v-model="newPassword" type="password" :placeholder="$t('Enter new password')" />
+        <input
+          v-model="newPassword"
+          type="password"
+          :placeholder="$t('Enter new password')"
+        />
 
         <label>{{ $t('Confirm new password') }}</label>
-        <input v-model="confirmNewPassword" type="password" :placeholder="$t('Confirm new password')" />
+        <input
+          v-model="confirmNewPassword"
+          type="password"
+          :placeholder="$t('Confirm new password')"
+        />
 
         <div class="buttons">
-          <button type="submit" class="save-button">{{ $t('Change password') }}</button>
-          <router-link to="/account" class="change-password">
-            {{ $t('Back') }}
-          </router-link>
+          <button type="submit" class="update-btn">{{ $t('Change password') }}</button>
+          <RouterLink to="/account" class="cancel-btn">
+            ← {{ $t('Back') }}
+          </RouterLink>
         </div>
 
-        <p class="message">{{ message }}</p>
-
+        <p v-if="message" :class="message.includes('Viga') ? 'error-msg' : 'success-msg'">
+          {{ message }}
+        </p>
       </form>
-    </div>
-  </div>
-
+    </section>
+  </main>
 </template>
 
 <style scoped>
-.page-wrapper {
-  height: 80vh;
+.password-wrapper {
+  min-height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Segoe UI", sans-serif;
-}
-
-.edit-panel {
-  background-color: #1a1a1a;
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
   color: white;
+}
+
+.password-box {
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(10px);
   border-radius: 16px;
-  padding: 2rem 3rem;
-  box-shadow: 0 0 10px rgba(255, 165, 0, 0.4);
-  border: 3px solid orange;
+  padding: 2rem 2.5rem;
   width: 100%;
-  max-width: 600px;
-  box-sizing: border-box;
-  height: 550px;
+  max-width: 480px;
+  box-shadow: 0 0 20px rgba(255, 165, 0, 0.08);
+  border: 1px solid rgba(255, 170, 51, 0.15);
 }
 
-.edit-panel h2 {
+.page-title {
+  font-size: 2rem;
+  font-weight: 800;
   text-align: center;
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
-  border-bottom: 1px solid orange;
-  padding-bottom: 0.5rem;
+  color: #ffaa33;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 8px rgba(255, 170, 51, 0.2);
 }
 
-.edit-panel form {
+.password-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
-.edit-panel label {
-  font-weight: bold;
-  margin-bottom: 0.2rem;
+.password-form label {
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
-.edit-panel input[type="password"] {
-  padding: 0.8rem;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  background-color: #f5f5f5;
-  color: black;
+.password-form input {
+  padding: 0.6rem 1rem;
   font-size: 1rem;
-  font-weight: normal;
-  transition: border 0.2s ease;
+  border-radius: 10px;
+  background: rgba(60, 60, 60, 0.7);
+  border: none;
+  color: white;
+  transition: all 0.2s ease;
 }
 
-.edit-panel input[type="password"]:focus {
+.password-form input:focus {
   outline: none;
-  border-color: orange;
-  box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.2);
+  background: rgba(80, 80, 80, 0.85);
+  border: 1px solid #ffaa33;
 }
 
 .buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1.5rem;
-}
-
-.save-button {
-  background: linear-gradient(to top left, rgb(40, 25, 5), orange);
-  border: 2px solid orange;
-  border-radius: 8px;
-  padding: 0.6rem 1.4rem;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.save-button:hover {
-  background: linear-gradient(to right, #e69500, #d4af37);
-}
-
-.change-password {
-  color: orange;
-  text-decoration: underline;
-  font-weight: bold;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
-  transition: color 0.3s ease;
-}
-
-.change-password:hover {
-  color: #ffcc80;
-}
-
-.message {
   margin-top: 1rem;
-  color: lightgreen;
+}
+
+.update-btn {
+  background: linear-gradient(to right, #ffaa33, #ff8c00);
+  color: black;
   font-weight: bold;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  padding: 0.6rem 1.4rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.update-btn:hover {
+  background: linear-gradient(to right, #ffc56e, #ffa726);
+}
+
+.cancel-btn {
+  color: #ffaa33;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.cancel-btn:hover {
+  color: #ffd28f;
+}
+
+.success-msg,
+.error-msg {
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
   text-align: center;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+}
+
+.success-msg {
+  background: rgba(0, 255, 100, 0.1);
+  border: 1px solid rgba(0, 255, 100, 0.4);
+  color: #9effb1;
+}
+
+.error-msg {
+  background: rgba(255, 80, 80, 0.15);
+  border: 1px solid rgba(255, 80, 80, 0.6);
+  color: #ff5f5f;
 }
 </style>
